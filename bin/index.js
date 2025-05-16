@@ -3,7 +3,6 @@
 const { prompt } = require('enquirer');
 const { createJsProject } = require('../utils/createProjectFolder');
 
-console.log("Thank You for using Genesix");
 let cmds = [
     "create-express-app",
     "install",
@@ -16,49 +15,53 @@ const cwd = process.cwd()
 
 
 async function main(){
-    const cmd = flags[0];
-    let isCmdValid = checkCmd(flags[0])
-    if(!isCmdValid) return console.error("Gx Error: \""+flags[0]+ "\" is not a valid gx command");
+    try {
+        const cmd = flags[0];
+        let isCmdValid = checkCmd(flags[0])
+        if(!isCmdValid) throw new Error("Gx Error: \""+flags[0]+ "\" is not a valid gx command");
 
-    if(cmd === "create-express-app"){
-        console.log(`creating express app in "${cwd}" please wait...`);
+        if(cmd === "create-express-app"){
+            console.log(`creating express app in "${cwd}" please wait...`);
 
-        let detailsArray = flags.slice(1)
-        let details = parseDetails(detailsArray)
+            let detailsArray = flags.slice(1)
+            let details = parseDetails(detailsArray)
 
-        if(detailsArray.length === 0){
-            // prompt the user to enter folder name 
-            let { foldername } = await promptfoldername()
-            details["foldername"] = foldername
-            // then prompt the user to choose a --template
-            let { template }= await promptForTemplate()
-            details["template"] = template
-        }else{
-            if(!details.foldername){
+            if(detailsArray.length === 0){
+                // prompt the user to enter folder name 
                 let { foldername } = await promptfoldername()
                 details["foldername"] = foldername
-            }
-
-            if(!details.template || !templates.includes(details.template)){
-                if(!templates.includes(details.template)){
-                    console.error(`"${details.template}" is not a valid template`)
-                }
+                // then prompt the user to choose a --template
                 let { template }= await promptForTemplate()
                 details["template"] = template
+            }else{
+                if(!details.foldername){
+                    let { foldername } = await promptfoldername()
+                    details["foldername"] = foldername
+                }
+
+                if(!details.template || !templates.includes(details.template)){
+                    if(!templates.includes(details.template)){
+                        console.error(`"${details.template}" is not a valid template`)
+                    }
+                    let { template }= await promptForTemplate()
+                    details["template"] = template
+                }
+            }
+
+            console.log(details);
+
+            if(details.template === "javascript"){
+                try {
+                    await createJsProject(cwd, details)
+                } catch (error) {
+                    throw new Error(error);
+                }
             }
         }
 
-        console.log(details);
-
-
-        // cwd, details
-
-        console.log(cwd);
-        if(details.template === "javascript"){
-            await createJsProject(cwd, details)
-        }
+    } catch (error) {
+        console.log(`${error.name} :`, error.message);
     }
-
 
 }
 
@@ -67,46 +70,58 @@ function checkCmd(cmd){
 }
 
 function parseDetails(flags = []){
-    let parsedDetailsObject = {}
-    const flagSamples = ["--template", "--port", "--projectname"]
+   try {
+        let parsedDetailsObject = {}
+        const flagSamples = ["--template", "--port", "--projectname"]
 
-    flags.forEach((f, i) => {
-        if(f.startsWith("*")){
-            parsedDetailsObject["foldername"] = f.replace("*","")
-        }
-
-        if(f.startsWith("--")){
-            if(flagSamples.includes(f)){
-                let fl = f.replaceAll("-", "")
-                parsedDetailsObject[fl] = flags[i+1]
-            }else{
-                console.error(`"${f}" is not a valid flag \nthe valid flags are viz: \n${flagSamples.toString().replace("[", "").replace("]", "").replaceAll(",", "\n")}`)
+        flags.forEach((f, i) => {
+            if(f.startsWith("*")){
+                parsedDetailsObject["foldername"] = f.replace("*","")
             }
-        }
-    })
 
-    return parsedDetailsObject
+            if(f.startsWith("--")){
+                if(flagSamples.includes(f)){
+                    let fl = f.replaceAll("-", "")
+                    parsedDetailsObject[fl] = flags[i+1]
+                }else{
+                    throw Error(`"${f}" is not a valid flag \nthe valid flags are viz: \n${flagSamples.toString().replace("[", "").replace("]", "").replaceAll(",", "\n")}`)
+                }
+            }
+        })
+
+        return parsedDetailsObject
+   } catch (error) {
+        throw new Error(error);
+   }
 }
 
 async function promptfoldername(){
-    let foldername = await prompt({
-        type: "input",
-        name: "foldername",
-        message: "What is your project name?"
-    })
-
-    return foldername
+    try {
+        let foldername = await prompt({
+            type: "input",
+            name: "foldername",
+            message: "What is your project name?"
+        })
+    
+        return foldername
+    } catch (error) {
+        throw new Error(error);
+    }
 }
 
 async function promptForTemplate(){
-    let template = await prompt({
-        type: "select",
-        name: "template",
-        message: "Choose a project Template",
-        choices: templates
-    })
-
-    return template
+    try {
+        let template = await prompt({
+            type: "select",
+            name: "template",
+            message: "Choose a project Template",
+            choices: templates
+        })
+    
+        return template
+    } catch (error) {
+        throw Error(error)
+    }
 }
 
 main()

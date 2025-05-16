@@ -1,5 +1,5 @@
 {
-  "name": "create-express-server",
+  "name": "genesix-cli",
   "version": "1.0.0",
   "description": "CLI to scaffold an Express.js app easily",
   "main": "bin/index.js",
@@ -14,7 +14,9 @@
     "cli",
     "generator",
     "scaffold",
-    "node"
+    "node",
+    "genesix",
+    "genesix-cli"
   ],
   "author": "Amaga Nnamdi",
   "license": "MIT",
