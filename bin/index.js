@@ -8,7 +8,7 @@ let cmds = [
     "install",
     "uninstall"
 ]
-let templates = ["javascript", "typescript"]
+let templates = ["javascript", "typescript", "js", "ts"]
 
 const flags = process.argv.slice(2)
 const cwd = process.cwd()
@@ -25,7 +25,7 @@ async function main(){
 
             let details = await getDetails()
 
-            if(details.template === "javascript"){
+            if(details.template === "javascript" || details.template === "js"){
                 try {
                     await createJsProject(cwd, details)
                 } catch (error) {
@@ -33,7 +33,7 @@ async function main(){
                 }
             }
 
-            if(details.template === "typescript"){
+            if(details.template === "typescript" || details.template === "ts"){
                 try {
                     await createTsProject(cwd, details)
                 } catch (error) {
@@ -55,7 +55,7 @@ function checkCmd(cmd){
 function parseDetails(flags = []){
    try {
         let parsedDetailsObject = {}
-        const flagSamples = ["--template", "--port", "--projectname"]
+        const flagSamples = ["--template", "--port", "--t", "--p"]
 
         flags.forEach((f, i) => {
             if(f.startsWith("*")){
@@ -65,9 +65,11 @@ function parseDetails(flags = []){
             if(f.startsWith("--")){
                 if(flagSamples.includes(f)){
                     let fl = f.replaceAll("-", "")
+                    fl = fl === "t" ? "template" : fl === "p" ? "port" : fl;
                     parsedDetailsObject[fl] = flags[i+1]
                 }else{
-                    throw Error(`"${f}" is not a valid flag \nthe valid flags are viz: \n${flagSamples.toString().replace("[", "").replace("]", "").replaceAll(",", "\n")}`)
+                    // throw Error(`"${f}" is not a valid flag \nthe valid flags are viz: \n${flagSamples.toString().replace("[", "").replace("]", "").replaceAll(",", "\n")}`)
+                    console.log(`"${f}" is not a valid flag \nthe valid flags are viz: \n${flagSamples.toString().replace("[", "").replace("]", "").replaceAll(",", "\n")}`);
                 }
             }
         })

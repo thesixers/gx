@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "CLI to scaffold an Express.js app easily",
   "main": "bin/index.js",
+  "files": [
+    "bin",
+    "templates",
+    "utils"
+  ],
   "bin": {
     "gx": "bin/index.js"
   },

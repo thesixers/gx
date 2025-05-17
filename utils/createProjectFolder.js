@@ -23,7 +23,7 @@ async function createJsProject(dir, details){
         ]
         
 
-        console.log("\n \n \n writing to project 😄.....");
+        console.log("\n \n writing to project 😄.....");
 
         // create the folders
         for (const folder of bareFolders) {
@@ -38,7 +38,7 @@ async function createJsProject(dir, details){
             }
         } 
 
-        console.log(`\n \n \n Project has been created run \n \n cd ${details.foldername} \n npm install \n npm start`);
+        console.log(`\n Project has been created run \n \n cd ${details.foldername} \n npm install \n npm start`);
 
     } catch (error) {
         throw Error(error)
@@ -61,7 +61,7 @@ async function createTsProject(dir, details){
             "src/routes", "src/controllers", 
             "src/middleware", "views"
         ]
-        console.log("\n \n \n writing to project 😄.....");
+        console.log("\n \n writing to project 😄.....");
 
         // create the folders
         for (const folder of bareFolders) {
@@ -76,7 +76,7 @@ async function createTsProject(dir, details){
             }
         } 
 
-        console.log(`\n \n \n Project has been created run: \n \n cd ${details.foldername} \n npm install \n npx tsc --init \n npm start`);
+        console.log(` \n Project has been created run: \n \n cd ${details.foldername} \n npm install \n npx tsc --init \n npm start`);
 
     } catch (error) {
         throw new Error(error);   
@@ -101,8 +101,9 @@ async function getLatestVersion(pkgName) {
     const version = await latestVersion.default(pkgName);
     return version;
   } catch (err) {
-    console.error(`Failed to get version for ${pkgName}`, err);
-    throw Error(`Failed to get version for ${pkgName}`, err)
+    // console.error(`Failed to get version for ${pkgName}`, err);
+    // throw Error(`Failed to get version for ${pkgName}`, err)
+    return false
   }
 }
   
@@ -122,9 +123,9 @@ async function generatePackageJson(details) {
         author: "",
         license: "ISC",
         dependencies: {
-            express: `^${expressVersion}`,
-            morgan: `^${morganVersion}`,
-            cors: `^${corsVersion}`
+            express: `^${expressVersion ? expressVersion : "5.1.0"}`,
+            morgan: `^${morganVersion ? morganVersion : "1.10.0"}`,
+            cors: `^${corsVersion ? corsVersion : "2.8.5"}`
         },
         };
     
@@ -137,12 +138,12 @@ async function generatePackageJson(details) {
         const tsMorgan = await getLatestVersion('@types/morgan');
     
         base.devDependencies = {
-            typescript: `^${tsVersion}`,
-            '@types/node': `^${typesNode}`,
-            '@types/express': `^${typesExpress}`,
-            'ts-node-dev': `^${tsNodeDev}`,
-            '@types/cors': `^${tsCors}`,
-            '@types/morgan': `^${tsMorgan}`
+            typescript: `^${tsVersion ? tsVersion : "5.8.3"}`,
+            '@types/node': `^${typesNode ? typesNode : "22.15.18"}`,
+            '@types/express': `^${typesExpress ? typesExpress : "5.0.2"}`,
+            'ts-node-dev': `^${tsNodeDev ? tsNodeDev : "2.0.0"}`,
+            '@types/cors': `^${tsCors ? tsCors : "2.8.18"}`,
+            '@types/morgan': `^${tsMorgan ? tsMorgan : "1.9.9"}`
         };
         }
     
