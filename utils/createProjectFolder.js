@@ -11,7 +11,7 @@ async function createJsProject(dir, details){
         let data = await generatePackageJson(details)
         await fs.mkdir(url, {recursive: true})
         let bareFiles = [
-            "README.md", "package.json", ".env", 
+            "README.md", "package.json", ".env",
             ".gitignore", "public/index.html","src/server.js", 
             "src/routes/mainRoutes.js", "src/controllers/mainController.js", 
             "src/middleware/index.js"
@@ -52,7 +52,7 @@ async function createTsProject(dir, details){
         await fs.mkdir(url, {recursive: true})
         let bareFiles = [
             "README.md", "package.json", ".env", 
-            ".gitignore", "public/index.html","src/server.ts", 
+            ".gitignore", "public/index.html","src/server.ts",  "tsconfig.json",
             "src/routes/mainRoutes.ts", "src/controllers/mainController.ts", 
             "src/middleware/index.ts"
         ]

@@ -17,5 +17,5 @@ app.use(morgan("dev"))
 app.use("/", mainRoutes)
 
 app.listen(PORT, () => {
-    console.log("server is listening at port "+ PORT);
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
 })
