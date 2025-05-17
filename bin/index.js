@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { prompt } = require('enquirer');
-const { createJsProject } = require('../utils/createProjectFolder');
+const { createJsProject, createTsProject } = require('../utils/createProjectFolder');
 
 let cmds = [
     "create-express-app",
@@ -23,38 +23,21 @@ async function main(){
         if(cmd === "create-express-app"){
             console.log(`creating express app in "${cwd}" please wait...`);
 
-            let detailsArray = flags.slice(1)
-            let details = parseDetails(detailsArray)
-
-            if(detailsArray.length === 0){
-                // prompt the user to enter folder name 
-                let { foldername } = await promptfoldername()
-                details["foldername"] = foldername
-                // then prompt the user to choose a --template
-                let { template }= await promptForTemplate()
-                details["template"] = template
-            }else{
-                if(!details.foldername){
-                    let { foldername } = await promptfoldername()
-                    details["foldername"] = foldername
-                }
-
-                if(!details.template || !templates.includes(details.template)){
-                    if(!templates.includes(details.template)){
-                        console.error(`"${details.template}" is not a valid template`)
-                    }
-                    let { template }= await promptForTemplate()
-                    details["template"] = template
-                }
-            }
-
-            console.log(details);
+            let details = await getDetails()
 
             if(details.template === "javascript"){
                 try {
                     await createJsProject(cwd, details)
                 } catch (error) {
                     throw new Error(error);
+                }
+            }
+
+            if(details.template === "typescript"){
+                try {
+                    await createTsProject(cwd, details)
+                } catch (error) {
+                    throw Error(error)
                 }
             }
         }
@@ -122,6 +105,39 @@ async function promptForTemplate(){
     } catch (error) {
         throw Error(error)
     }
+}
+
+async function getDetails() {
+let detailsArray = flags.slice(1)
+   try {
+    let details = parseDetails(detailsArray)
+
+    if(detailsArray.length === 0){
+        // prompt the user to enter folder name 
+        let { foldername } = await promptfoldername()
+        details["foldername"] = foldername
+        // then prompt the user to choose a --template
+        let { template }= await promptForTemplate()
+        details["template"] = template
+    }else{
+        if(!details.foldername){
+            let { foldername } = await promptfoldername()
+            details["foldername"] = foldername
+        }
+
+        if(!details.template || !templates.includes(details.template)){
+            if(!templates.includes(details.template)){
+                console.error(`"${details.template}" is not a valid template`)
+            }
+            let { template }= await promptForTemplate()
+            details["template"] = template
+        }
+    }
+
+    return details
+   } catch (error) {
+    throw Error(error)
+   }
 }
 
 main()

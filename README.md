@@ -118,8 +118,8 @@ my-app/
 Clone and run the CLI locally:
 
 ```bash
-git clone https://github.com/yourusername/genesix-cli.git
-cd genesix-cli
+git clone https://github.com/thesixers/gx.git
+cd gx
 npm install
 
 # Run CLI locally
