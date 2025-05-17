@@ -33,9 +33,9 @@ async function createJsProject(dir, details){
         for (const file of bareFiles) {
             if(file === "package.json"){
                 await fs.writeFile(`${url}/${file}`, JSON.stringify(data, null, 2))
-            }else if(file !== ".env"){
+            }else if(file === ".env"){
                 await fs.writeFile(`${url}/${file}`, "PORT=3000")
-            }else if(file !== ".gitignore"){
+            }else if(file === ".gitignore"){
                 await fs.writeFile(`${url}/${file}`, "node_modules")
             }
             else{
@@ -76,9 +76,9 @@ async function createTsProject(dir, details){
         for (const file of bareFiles) {
             if(file === "package.json"){
                 await fs.writeFile(`${url}/${file}`, JSON.stringify(data, null, 2))
-            }else if(file !== ".env"){
+            }else if(file === ".env"){
                 await fs.writeFile(`${url}/${file}`, "PORT=3000")
-            }else if(file !== ".gitignore"){
+            }else if(file === ".gitignore"){
                 await fs.writeFile(`${url}/${file}`, "node_modules")
             }else{
                 await readWrite(`${tsDir}/${file}`, `${url}/${file}`) 
