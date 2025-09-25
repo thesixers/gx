@@ -1,3 +1,10 @@
+Got it 👍
+Since you’ve updated the command style for `gx create-express-app`, I’ll rewrite the README accordingly so it reflects the new format (`gx create-express-app filename temp:js port:300 db:mongodb`).
+
+Here’s the updated README:
+
+---
+
 # genesix-cli
 
 **A powerful CLI tool to scaffold modern web applications starting with Express.js — JavaScript and TypeScript supported.**
@@ -6,16 +13,16 @@
 
 ## Table of Contents
 
-- [About](#about)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Command Syntax](#command-syntax)
-- [Templates](#templates)
-- [Project Structure](#project-structure)
-- [Development](#development)
-- [Contributing](#contributing)
-- [License](#license)
+* [About](#about)
+* [Features](#features)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Command Syntax](#command-syntax)
+* [Templates](#templates)
+* [Project Structure](#project-structure)
+* [Development](#development)
+* [Contributing](#contributing)
+* [License](#license)
 
 ---
 
@@ -27,12 +34,13 @@
 
 ## Features
 
-- Scaffold an Express.js app in JavaScript or TypeScript.
-- Automatically sets up project structure, base files, and configurations.
-- Interactive prompts to guide users when flags are missing.
-- Installs up-to-date dependency versions.
-- Lightweight and zero-config — just run and code.
-- Built for expansion (e.g., React scaffolding planned).
+* Scaffold an Express.js app in JavaScript or TypeScript.
+* Automatically sets up project structure, base files, and configurations.
+* Supports inline configuration with **project name**, **template type**, **port number**, and **database**.
+* Interactive prompts available if you omit any options.
+* Installs up-to-date dependency versions.
+* Lightweight and zero-config — just run and code.
+* Built for expansion (e.g., React scaffolding planned).
 
 ---
 
@@ -47,7 +55,7 @@ npm install -g genesix-cli
 Or run directly without installing:
 
 ```bash
-npx genesix-cli create-express-app *project-name --template js
+npx genesix-cli create-express-app my-app temp:js port:300 db:mongodb
 ```
 
 ---
@@ -55,36 +63,39 @@ npx genesix-cli create-express-app *project-name --template js
 ## Usage
 
 ```bash
-gx create-express-app *my-app --template js
+gx create-express-app my-app temp:js port:300 db:mongodb
 ```
 
-- `*project-name` is **required** and must come first (start with an asterisk).
-- `--template` flag must be used to specify the template (`js` or `ts`).
+* `my-app` → The project/folder name (required).
+* `temp:` → Defines the template (`js` or `ts`).
+* `port:` → Defines the server port (default: `3000`).
+* `db:` → Defines the database to set up (e.g., `mongodb`, `mysql`, or `none`).
 
-If you forget to include a flag or value, the CLI will prompt you.
+If you leave out any option, the CLI will prompt you interactively.
 
 ---
 
 ## Command Syntax
 
 ```bash
-create-express-app *project-name --template js
+gx create-express-app project-name temp:<js|ts> port:<number> db:<database>
 ```
 
-- `create-express-app`: Command to scaffold an Express project.
-- `*project-name`: Required. Name of the project/folder to be created.
-- `--template`: Required. Options are:
-  - `js`: JavaScript template
-  - `ts`: TypeScript template
+### Arguments:
+
+* `project-name` → Required. Name of the project/folder to be created.
+* `temp:` → Required. Choose `js` for JavaScript or `ts` for TypeScript.
+* `port:` → Optional. Port for the Express app (default: 3000).
+* `db:` → Optional. Database to integrate (`mongodb`, `mysql`, or `none`).
 
 ---
 
 ## Templates
 
-| Template | Description                          |
-|----------|--------------------------------------|
-| js       | Basic Express app in JavaScript      |
-| ts       | Express app with TypeScript setup    |
+| Template | Description                       |
+| -------- | --------------------------------- |
+| js       | Basic Express app in JavaScript   |
+| ts       | Express app with TypeScript setup |
 
 ---
 
@@ -132,9 +143,9 @@ node bin/index.js
 
 Contributions are welcome!
 
-- Open issues
-- Submit pull requests
-- Share feature suggestions
+* Open issues
+* Submit pull requests
+* Share feature suggestions
 
 ---
 
@@ -145,3 +156,7 @@ ISC License
 ---
 
 > **Note:** More commands like `create-react-app` are coming soon. Stay tuned!
+
+---
+
+Do you want me to also **add examples for multiple databases** (like `mysql`, `postgres` along with `mongodb`) in the README so it’s future-proof?
