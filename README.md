@@ -1,10 +1,3 @@
-Got it 👍
-Since you’ve updated the command style for `gx create-express-app`, I’ll rewrite the README accordingly so it reflects the new format (`gx create-express-app filename temp:js port:300 db:mongodb`).
-
-Here’s the updated README:
-
----
-
 # genesix-cli
 
 **A powerful CLI tool to scaffold modern web applications starting with Express.js — JavaScript and TypeScript supported.**
