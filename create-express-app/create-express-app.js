@@ -17,7 +17,7 @@ async function createExpressApp(arguments = []) {
     return await createTsProject(cwd, { foldername, port, db });
 
   console.error(`gx error: ${template} is not a invalid template`);
-
+  process.exit(1);
   return true;
 }
 

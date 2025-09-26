@@ -1,0 +1,35 @@
+genesix-cli
+
+A powerful CLI tool to scaffold modern web applications.
+
+Usage:
+  gx <command> [options]
+
+Commands:
+  create-express-app <project-name> temp:<js|ts> port:<number> db:<database>
+      Scaffold an Express.js application.
+      - <project-name>   Required. Name of the folder/project to create.
+      - temp:            Required. Choose 'js' or 'ts' for template.
+      - port:            Optional. Port for the Express server (default: 3000).
+      - db:              Optional. Database integration (mongodb, mysql, none).
+
+Examples:
+  gx create-express-app my-app temp:js port:3000 db:mongodb
+  gx create-express-app api-server temp:ts port:5000 db:mysql
+  gx create-express-app test-app temp:js
+
+Planned Commands (coming soon):
+  create-react-app <project-name> temp:<js|ts>
+      Scaffold a React.js application with Vite.
+
+  create-fullstack-app <project-name>
+      Scaffold a full-stack app with both Express + React.
+
+Global Options:
+  --help       Show this help message.
+  --version    Show the CLI version.
+
+Notes:
+  - You can omit optional flags (port, db). Defaults will be applied.
+  - If you miss a required argument, the CLI will prompt interactively.
+  - New commands will be added in future releases.

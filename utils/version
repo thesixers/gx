@@ -1,0 +1,10 @@
+
+function versionNo() {
+    const { version } = require("../package.json");
+      console.log(`genesix-cli v${version}`);
+      process.exit(0);
+}
+
+module.exports = { 
+    versionNo 
+}

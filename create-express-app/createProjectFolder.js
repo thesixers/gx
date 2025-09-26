@@ -65,6 +65,7 @@ run:
   npm start
 `;
     console.log(message);
+    process.exit(0);
   } catch (error) {
     //  ignore error for now
   }
@@ -88,7 +89,7 @@ async function createTsProject(dir, details) {
       "src/controllers/mainController.ts",
       "src/middleware/index.ts",
     ];
-    
+
     let bareFolders = [
       "public",
       "src",
@@ -126,6 +127,7 @@ run:
  npm start
 `;
     console.log(message);
+    process.exit(0);
   } catch (error) {
    // ignore error for now
   }
